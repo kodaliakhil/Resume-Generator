@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import "@/app/globals.css";
 import { Header } from "@/components/layout/Header";
+import { ToasterProvider } from "@/components/toast/useToast";
+import { Footer } from "@/components/layout/Footer";
+import { Toaster } from "@/components/toast/Toaster";
 
 export const metadata: Metadata = {
   title: "ResumeGen - Latex Resume Builder",
@@ -22,10 +25,14 @@ export default function RootLayout({
         >
           Skip to content
         </a>
+        <ToasterProvider>
         <Header/>
         <main id="main-content" className="container my-8">
           {children}
         </main>
+        <Footer/>
+        <Toaster/>
+        </ToasterProvider>
       </body>
     </html>
   );

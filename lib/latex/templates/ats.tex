@@ -1,0 +1,98 @@
+% ==============================================
+% Template: ATS-friendly (Single-column, conservative)
+% Engine: XeLaTeX (Tectonic)
+% Paper: A4
+% ==============================================
+\documentclass[10pt,a4paper]{article}
+ 
+% --- Unicode & Fonts ---
+\usepackage{fontspec}
+\setmainfont{Noto Sans}
+ 
+% --- Page & Layout ---
+\usepackage[margin=1.9cm]{geometry} % Slightly larger margins for readability
+\usepackage{parskip}
+\usepackage{setspace}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{hyperref} % colorless links for ATS
+\usepackage{xfp}
+ 
+% --- Theme (Monochrome) ---
+\linespread{\VAR{spacingScale}}
+\AtBeginDocument{
+  \fontsize{\fpeval{10 * \VAR{fontSizeScale}}pt}{\fpeval{12 * \VAR{fontSizeScale}}pt}\selectfont
+}
+ 
+% --- Lists ---
+\setlist[itemize]{itemsep=2pt, topsep=2pt, leftmargin=*}
+ 
+% --- Sections (no color, ATS-safe) ---
+\titleformat{\section}{\large\bfseries}{}{0pt}{}
+\titlespacing*{\section}{0pt}{6pt}{4pt}
+ 
+% --- Helpers ---
+\newcommand{\IfNonEmpty}[2]{\if\relax\detokenize{#1}\relax\else #2\fi}
+ 
+\hypersetup{
+  colorlinks=false,
+  pdfborder={0 0 0}
+}
+ 
+\begin{document}
+% ---- Header (No icons, no colors) ----
+{\huge\bfseries \VAR{fullName}}\par
+{\large \VAR{title}}\par
+\vspace{0.2em}
+{\small
+  \href{mailto:\VAR{email}}{\VAR{email}}
+  \IfNonEmpty{\VAR{phone}}{\ \textbar\ \VAR{phone}}
+  \IfNonEmpty{\VAR{location}}{\ \textbar\ \VAR{location}}
+  \IfNonEmpty{\VAR{linksInline}}{\ \textbar\ \VAR{linksInline}}
+}
+\par
+\rule{\linewidth}{0.6pt}
+ 
+% ---- Summary ----
+\IfNonEmpty{\VAR{summary}}{
+  \section*{Summary}
+  \VAR{summary}
+}
+ 
+% ---- Experience ----
+\IfNonEmpty{\VAR{experienceBlock}}{
+  \section*{Experience}
+  \VAR{experienceBlock}
+}
+ 
+% ---- Projects ----
+\IfNonEmpty{\VAR{projectsBlock}}{
+  \section*{Projects}
+  \VAR{projectsBlock}
+}
+ 
+% ---- Education ----
+\IfNonEmpty{\VAR{educationBlock}}{
+  \section*{Education}
+  \VAR{educationBlock}
+}
+ 
+% ---- Skills ----
+\IfNonEmpty{\VAR{skillsBlock}}{
+  \section*{Skills}
+  \VAR{skillsBlock}
+}
+ 
+% ---- Certifications ----
+\IfNonEmpty{\VAR{certsBlock}}{
+  \section*{Certifications}
+  \VAR{certsBlock}
+}
+ 
+% ---- Extras ----
+\IfNonEmpty{\VAR{extrasBlock}}{
+  \section*{Additional}
+  \VAR{extrasBlock}
+}
+ 
+\end{document}
