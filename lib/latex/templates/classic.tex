@@ -1,0 +1,103 @@
+% ==============================================
+% Template: Classic (Single-column)
+% Engine: XeLaTeX (Tectonic)
+% Paper: A4
+% ==============================================
+\documentclass[10pt,a4paper]{article}
+ 
+% --- Unicode & Fonts ---
+\usepackage{fontspec}
+\setmainfont{Noto Sans} % Ensure Noto Sans is available in Docker image
+ 
+% --- Page & Layout ---
+\usepackage[margin=1.6cm]{geometry}
+\usepackage{parskip}    % Blank line between paragraphs, no indent
+\usepackage{setspace}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage[
+  colorlinks=true,
+  linkcolor=Accent,
+  urlcolor=Accent,
+  citecolor=Accent
+]{hyperref}
+\usepackage{xfp}        % Floating-point eval for font scaling
+\usepackage{ifthen}
+ 
+% --- Theme (Accent Color & Scales) ---
+\definecolor{Accent}{HTML}{\VAR{accentColorHex}}
+\linespread{\VAR{spacingScale}}
+\AtBeginDocument{
+  \fontsize{\fpeval{10 * \VAR{fontSizeScale}}pt}{\fpeval{12 * \VAR{fontSizeScale}}pt}\selectfont
+}
+ 
+% --- Lists Tightening ---
+\setlist[itemize]{itemsep=2pt, topsep=2pt, leftmargin=*}
+ 
+% --- Section Styling ---
+\titleformat{\section}{\large\bfseries\color{Accent}}{}{0pt}{}
+\titlespacing*{\section}{0pt}{6pt}{4pt}
+ 
+% --- Helpers ---
+\newcommand{\IfNonEmpty}[2]{\if\relax\detokenize{#1}\relax\else #2\fi}
+\newcommand{\MaybeIcon}[1]{\ifthenelse{\equal{\VAR{showIcons}}{1}}{#1\ }{}}
+ 
+\begin{document}
+% ---- Header ----
+{\huge\bfseries \textcolor{Accent}{\VAR{fullName}}}\par
+{\large \VAR{title}}\par
+\vspace{0.2em}
+{\small
+  \MaybeIcon{✉} \href{mailto:\VAR{email}}{\VAR{email}}
+  \IfNonEmpty{\VAR{phone}}{\ \textbullet\ \MaybeIcon{✆} \VAR{phone}}
+  \IfNonEmpty{\VAR{location}}{\ \textbullet\ \MaybeIcon{📍} \VAR{location}}
+  \IfNonEmpty{\VAR{linksInline}}{\ \textbullet\ \VAR{linksInline}}
+}
+\par
+\rule{\linewidth}{0.6pt}
+ 
+% ---- Summary ----
+\IfNonEmpty{\VAR{summary}}{
+  \section*{Summary}
+  \VAR{summary}
+}
+ 
+% ---- Experience ----
+\IfNonEmpty{\VAR{experienceBlock}}{
+  \section*{Experience}
+  \VAR{experienceBlock}
+}
+ 
+% ---- Projects ----
+\IfNonEmpty{\VAR{projectsBlock}}{
+  \section*{Projects}
+  \VAR{projectsBlock}
+}
+ 
+% ---- Education ----
+\IfNonEmpty{\VAR{educationBlock}}{
+  \section*{Education}
+  \VAR{educationBlock}
+}
+ 
+% ---- Skills ----
+\IfNonEmpty{\VAR{skillsBlock}}{
+  \section*{Skills}
+  \VAR{skillsBlock}
+}
+ 
+% ---- Certifications ----
+\IfNonEmpty{\VAR{certsBlock}}{
+  \section*{Certifications}
+  \VAR{certsBlock}
+}
+ 
+% ---- Extras ----
+\IfNonEmpty{\VAR{extrasBlock}}{
+  \section*{Additional}
+  \VAR{extrasBlock}
+}
+ 
+\end{document}
+ 

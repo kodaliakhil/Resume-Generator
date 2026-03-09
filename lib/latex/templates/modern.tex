@@ -1,0 +1,135 @@
+% ==============================================
+% Template: Modern (Two-column with sidebar)
+% Engine: XeLaTeX (Tectonic)
+% Paper: A4
+% ==============================================
+\documentclass[10pt,a4paper]{article}
+ 
+% --- Unicode & Fonts ---
+\usepackage{fontspec}
+\setmainfont{Noto Sans}
+ 
+% --- Page & Layout ---
+\usepackage[margin=1.6cm]{geometry}
+\usepackage{parskip}
+\usepackage{setspace}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage[
+  colorlinks=true,
+  linkcolor=Accent,
+  urlcolor=Accent,
+  citecolor=Accent
+]{hyperref}
+\usepackage{xfp}
+\usepackage{ifthen}
+\usepackage{ragged2e}
+\usepackage{array}
+\usepackage{tabularx}
+ 
+% --- Theme ---
+\definecolor{Accent}{HTML}{\VAR{accentColorHex}}
+\colorlet{SidebarBG}{Accent!7}
+\linespread{\VAR{spacingScale}}
+\AtBeginDocument{
+  \fontsize{\fpeval{10 * \VAR{fontSizeScale}}pt}{\fpeval{12 * \VAR{fontSizeScale}}pt}\selectfont
+}
+ 
+% --- Lists ---
+\setlist[itemize]{itemsep=2pt, topsep=2pt, leftmargin=*}
+ 
+% --- Sections ---
+\titleformat{\section}{\large\bfseries\color{Accent}}{}{0pt}{}
+\titlespacing*{\section}{0pt}{6pt}{4pt}
+ 
+% --- Helpers ---
+\newcommand{\IfNonEmpty}[2]{\if\relax\detokenize{#1}\relax\else #2\fi}
+\newcommand{\MaybeIcon}[1]{\ifthenelse{\equal{\VAR{showIcons}}{1}}{#1\ }{}}
+ 
+% --- Layout: Sidebar + Main using tabularx ---
+\newcolumntype{L}{>{\RaggedRight\arraybackslash}X}
+\newcommand{\SidebarWidth}{0.30\textwidth}
+\newcommand{\MainWidth}{0.68\textwidth}
+ 
+\begin{document}
+ 
+% ---- Header: Name + Title ----
+{\huge\bfseries \textcolor{Accent}{\VAR{fullName}}}\par
+{\large \VAR{title}}\par
+\vspace{0.2em}
+{\small
+  \MaybeIcon{✉} \href{mailto:\VAR{email}}{\VAR{email}}
+  \IfNonEmpty{\VAR{phone}}{\ \textbullet\ \MaybeIcon{✆} \VAR{phone}}
+  \IfNonEmpty{\VAR{location}}{\ \textbullet\ \MaybeIcon{📍} \VAR{location}}
+}
+\par
+\rule{\linewidth}{0.6pt}
+ 
+% ---- Body: Sidebar | Main ----
+\noindent
+\begin{tabularx}{\linewidth}{p{\SidebarWidth} @{\hspace{0.02\linewidth}} p{\MainWidth}}
+ 
+% ===== Sidebar =====
+\begingroup
+\color{black}
+\setlength{\fboxsep}{8pt}
+\colorbox{SidebarBG}{%
+  \begin{minipage}[t]{\SidebarWidth - 16pt}
+    % Links
+    \IfNonEmpty{\VAR{linksInline}}{
+      {\bfseries\color{Accent} Links}\par
+      {\small \VAR{linksInline}}\par\vspace{6pt}
+    }
+ 
+    % Skills
+    \IfNonEmpty{\VAR{skillsBlock}}{
+      {\bfseries\color{Accent} Skills}\par
+      {\small \VAR{skillsBlock}}\par\vspace{6pt}
+    }
+ 
+    % Certifications
+    \IfNonEmpty{\VAR{certsBlock}}{
+      {\bfseries\color{Accent} Certifications}\par
+      {\small \VAR{certsBlock}}\par\vspace{6pt}
+    }
+ 
+    % Extras
+    \IfNonEmpty{\VAR{extrasBlock}}{
+      {\bfseries\color{Accent} Additional}\par
+      {\small \VAR{extrasBlock}}\par
+    }
+  \end{minipage}
+}
+\endgroup
+&
+% ===== Main =====
+\begin{minipage}[t]{\MainWidth}
+  % Summary
+  \IfNonEmpty{\VAR{summary}}{
+    \section*{Summary}
+    \VAR{summary}
+  }
+ 
+  % Experience
+  \IfNonEmpty{\VAR{experienceBlock}}{
+    \section*{Experience}
+    \VAR{experienceBlock}
+  }
+ 
+  % Projects
+  \IfNonEmpty{\VAR{projectsBlock}}{
+    \section*{Projects}
+    \VAR{projectsBlock}
+  }
+ 
+  % Education
+  \IfNonEmpty{\VAR{educationBlock}}{
+    \section*{Education}
+    \VAR{educationBlock}
+  }
+\end{minipage}
+ 
+\end{tabularx}
+ 
+\end{document}
