@@ -1,14 +1,13 @@
-import { Router, Request, Response } from "express"
+import { Router, Request, Response } from "express";
+
 import { ResumeData } from "../types/resume";
+import { generateResumeHtml } from "../templates/resumeTemplate";
 
 const router = Router();
 
 router.post(
   "/pdf",
-  (
-    req: Request<unknown, unknown, ResumeData>,
-    res: Response
-  ): void => {
+  (req: Request<unknown, unknown, ResumeData>, res: Response): void => {
     const resumeData = req.body;
 
     if (!resumeData) {
@@ -20,12 +19,13 @@ router.post(
       return;
     }
 
+    const html = generateResumeHtml(resumeData);
+
     res.status(200).json({
       success: true,
-      message: "Resume data received successfully",
-      data: resumeData,
+      html,
     });
-  }
+  },
 );
 
 export default router;
