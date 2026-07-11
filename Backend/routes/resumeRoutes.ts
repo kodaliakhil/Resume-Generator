@@ -3,6 +3,7 @@ import { Router, Request, Response } from "express";
 import { ResumeData } from "../types/resume";
 import { generateResumeHtml } from "../templates/resumeTemplate";
 import { generatePdf } from "../services/pdfService";
+import { validateResume } from "../utils/validateResume";
 
 const router = Router();
 
@@ -20,6 +21,16 @@ router.post(
           success: false,
 
           message: "Resume data is required",
+        });
+
+        return;
+      }
+      const validationErrors = validateResume(resumeData);
+
+      if (validationErrors.length > 0) {
+        res.status(400).json({
+          success: false,
+          errors: validationErrors,
         });
 
         return;

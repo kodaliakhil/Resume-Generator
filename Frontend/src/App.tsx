@@ -10,6 +10,7 @@ import ProjectsSection from "./sections/ProjectsSection";
 import SkillsSection from "./sections/SkillsSection";
 import type { ResumeData } from "./types/resume";
 import { generateResumePdf } from "./services/resumeApi";
+import { validateResume } from "./utils/validateResume";
 
 const initialResumeData: ResumeData = {
   personalInfo: {
@@ -31,34 +32,45 @@ const initialResumeData: ResumeData = {
 function App() {
   const [resumeData, setResumeData] = useState<ResumeData>(initialResumeData);
   const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
+  const [error, setError] = useState("");
+
   const handleGeneratePdf = async () => {
     try {
+      setError("");
+
+      const validationErrors = validateResume(resumeData);
+
+      if (validationErrors.length > 0) {
+        setError(validationErrors.join(" "));
+        return;
+      }
+
       setIsGeneratingPdf(true);
 
       const pdfBlob = await generateResumePdf(resumeData);
 
-      const downloadUrl = window.URL.createObjectURL(pdfBlob);
+      const url = window.URL.createObjectURL(pdfBlob);
 
       const link = document.createElement("a");
 
-      link.href = downloadUrl;
       const fileName = resumeData.personalInfo.name
         ? `${resumeData.personalInfo.name
             .trim()
             .replace(/\s+/g, "_")}_Resume.pdf`
         : "resume.pdf";
 
+      link.href = url;
       link.download = fileName;
 
       document.body.appendChild(link);
-
       link.click();
-
       document.body.removeChild(link);
 
-      window.URL.revokeObjectURL(downloadUrl);
+      window.URL.revokeObjectURL(url);
     } catch (error) {
-      console.error("PDF generation failed", error);
+      console.error(error);
+
+      setError("Failed to generate PDF. Please try again.");
     } finally {
       setIsGeneratingPdf(false);
     }
@@ -77,6 +89,11 @@ function App() {
             >
               {isGeneratingPdf ? "Generating PDF..." : "Generate PDF"}
             </button>
+            {error && (
+              <div className="rounded-md border border-red-200 bg-red-50 p-3 text-sm text-red-700">
+                {error}
+              </div>
+            )}
           </div>
           <PersonalInfoSection
             value={resumeData.personalInfo}
