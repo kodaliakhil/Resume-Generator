@@ -77,20 +77,20 @@ function App() {
   };
 
   return (
-    <main className="min-h-screen bg-slate-200 p-6">
+    <main className="min-h-screen bg-slate-100 p-4 md:p-6">
       <div className="mx-auto grid max-w-7xl gap-6 lg:grid-cols-2">
         <div className="space-y-6">
-          <div className="mb-4">
+          <div className="rounded-lg bg-white p-4 shadow">
             <button
               type="button"
               onClick={handleGeneratePdf}
               disabled={isGeneratingPdf}
-              className="rounded-md bg-blue-600 px-4 py-2 font-medium text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
+              className="w-full rounded-md bg-blue-600 px-4 py-3 font-medium text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto"
             >
               {isGeneratingPdf ? "Generating PDF..." : "Generate PDF"}
             </button>
             {error && (
-              <div className="rounded-md border border-red-200 bg-red-50 p-3 text-sm text-red-700">
+              <div className="mt-3 rounded-md border border-red-200 bg-red-50 p-3 text-sm text-red-700">
                 {error}
               </div>
             )}
@@ -164,8 +164,9 @@ function App() {
             }
           />
         </div>
-
-        <ResumePreview resumeData={resumeData} />
+        <div className="lg:sticky lg:top-6 lg:self-start">
+          <ResumePreview resumeData={resumeData} />
+        </div>
       </div>
     </main>
   );

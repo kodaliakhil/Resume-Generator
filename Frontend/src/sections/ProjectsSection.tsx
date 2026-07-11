@@ -7,8 +7,6 @@ interface Props {
 }
 
 function ProjectsSection({ value, onChange }: Props) {
-  // const [projects, setProjects] = useState<Project[]>([]);
-
   const { register, handleSubmit, reset } = useForm<Project>({
     defaultValues: {
       title: "",
@@ -19,20 +17,16 @@ function ProjectsSection({ value, onChange }: Props) {
   });
 
   const onSubmit = (data: Project) => {
-    // setProjects((previousProjects) => [...previousProjects, data]);
     onChange([...value, data]);
     reset();
   };
 
   const removeProject = (indexToRemove: number) => {
-    // setProjects((previousProjects) =>
-    //   previousProjects.filter((_, index) => index !== indexToRemove),
-    // );
     onChange(value.filter((_, i) => i !== indexToRemove));
   };
 
   return (
-    <div className="rounded-lg bg-white p-6 shadow-sm">
+    <div className="rounded-lg bg-white p-4 shadow md:p-6">
       <h2 className="mb-6 text-xl font-semibold text-slate-900">Projects</h2>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">

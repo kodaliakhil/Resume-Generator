@@ -26,7 +26,7 @@ function EducationSection({ value, onChange }: Props) {
   };
 
   return (
-    <div className="rounded-lg bg-white p-6 shadow-sm">
+    <div className="rounded-lg bg-white p-4 shadow md:p-6">
       <h2 className="mb-6 text-xl font-semibold">Education</h2>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
