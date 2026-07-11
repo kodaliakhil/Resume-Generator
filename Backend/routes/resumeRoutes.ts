@@ -16,15 +16,15 @@ router.post(
     try {
       const resumeData = req.body;
 
-      if (!resumeData) {
+      if (!resumeData || Object.keys(resumeData).length === 0) {
         res.status(400).json({
           success: false,
-
           message: "Resume data is required",
         });
 
         return;
       }
+
       const validationErrors = validateResume(resumeData);
 
       if (validationErrors.length > 0) {
@@ -40,31 +40,31 @@ router.post(
 
       const pdf = await generatePdf(html);
 
-      res.setHeader(
-        "Content-Type",
+      const downloadFileName = resumeData.personalInfo?.name?.trim()
+        ? `${resumeData.personalInfo.name
+            .trim()
+            .replace(/\s+/g, "_")}_Resume.pdf`
+        : "resume.pdf";
 
-        "application/pdf",
-      );
+      res.setHeader("Content-Type", "application/pdf");
 
       res.setHeader(
         "Content-Disposition",
-
-        'attachment; filename="resume.pdf"',
+        `attachment; filename="${downloadFileName}"`,
       );
 
-      res.setHeader(
-        "Content-Length",
+      res.setHeader("Content-Length", pdf.length.toString());
 
-        pdf.length,
-      );
+      res.setHeader("Cache-Control", "no-store");
 
       res.send(pdf);
-    } catch (error) {
-      console.error(error);
+
+      return;
+    } catch (error: unknown) {
+      console.error("PDF generation failed:", error);
 
       res.status(500).json({
         success: false,
-
         message: "Failed to generate PDF",
       });
     }

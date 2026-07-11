@@ -18,7 +18,7 @@ function ResumePreview({ resumeData }: ResumePreviewProps) {
 
   return (
     <div className="overflow-hidden rounded-lg bg-white p-6 shadow-lg md:p-8 lg:p-10">
-      <div className="mx-auto w-full max-w-[794px]">
+      <div className="mx-auto w-full max-w-198.5">
         <header className="mb-6 text-center">
           <h1 className="wrap-break-word text-3xl font-bold">
             {personalInfo.name || "Your Name"}
