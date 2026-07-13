@@ -3,12 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 
 import resumeRoutes from "./routes/resumeRoutes";
-import puppeteer from "puppeteer";
 
-console.log(
-  "Executable path:",
-  puppeteer.executablePath()
-);
 
 dotenv.config();
 
