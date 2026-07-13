@@ -1,6 +1,5 @@
 import { useState } from "react";
 import ResumePreview from "./components/ResumePreview";
-import { useResume } from "./hooks/useResume";
 import CertificationsSection from "./sections/CertificationsSection";
 import EducationSection from "./sections/EducationSection";
 import ExperienceSection from "./sections/ExperienceSection";
