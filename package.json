@@ -1,0 +1,26 @@
+{
+  "name": "resume-generator",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "scripts": {
+    "backend": "npm run build --prefix Backend && npm run start --prefix Backend",
+    "frontend": "npm run dev --prefix Frontend",
+    "dev": "concurrently --names \"BACKEND,FRONTEND\" --prefix-colors \"blue,green\" \"npm run backend\" \"npm run frontend\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kodaliakhil/Resume-Generator.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/kodaliakhil/Resume-Generator/issues"
+  },
+  "homepage": "https://github.com/kodaliakhil/Resume-Generator#readme",
+  "devDependencies": {
+    "concurrently": "^10.0.3"
+  }
+}
