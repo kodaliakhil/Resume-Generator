@@ -10,26 +10,14 @@ import SkillsSection from "./sections/SkillsSection";
 import type { ResumeData } from "./types/resume";
 import { generateResumePdf } from "./services/resumeApi";
 import { validateResume } from "./utils/validateResume";
+import { initialResumeData, mockResume } from "./data/resumeData";
 
-const initialResumeData: ResumeData = {
-  personalInfo: {
-    name: "",
-    email: "",
-    phone: "",
-    linkedin: "",
-    github: "",
-    location: "",
-  },
-  summary: "",
-  skills: [],
-  experience: [],
-  projects: [],
-  education: [],
-  certifications: [],
-};
+const isDevelopment = import.meta.env.DEV;
 
 function App() {
-  const [resumeData, setResumeData] = useState<ResumeData>(initialResumeData);
+  const [resumeData, setResumeData] = useState<ResumeData>(
+    isDevelopment ? mockResume : initialResumeData,
+  );
   const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
   const [error, setError] = useState("");
 
