@@ -58,16 +58,24 @@ function ResumePreview({ resumeData }: ResumePreviewProps) {
         <ResumeSection title="Experience">
           {experience.length > 0 ? (
             experience.map((item, index) => (
-              <div key={index} className="mb-4">
-                <h3 className="font-semibold">{item.jobTitle}</h3>
+              <div key={index} className="mb-5">
+                <div className="flex items-center justify-between">
+                  <h3 className="font-semibold">{item.jobTitle}</h3>
 
-                <p className="wrap-break-word">{item.company}</p>
+                  <span className="text-sm text-gray-600">
+                    {item.startDate} - {item.endDate}
+                  </span>
+                </div>
 
-                <p className="text-sm">
-                  {item.startDate} - {item.endDate}
-                </p>
+                <p className="font-medium">{item.company}</p>
 
-                <p className="wrap-break-word text-sm">{item.description}</p>
+                {item.bulletPoints?.length > 0 && (
+                  <ul className="mt-2 list-disc pl-5 text-sm">
+                    {item.bulletPoints.map((point, bulletIndex) => (
+                      <li key={bulletIndex}>{point}</li>
+                    ))}
+                  </ul>
+                )}
               </div>
             ))
           ) : (

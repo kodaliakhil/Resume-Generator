@@ -99,7 +99,12 @@ export const generateResumeHtml = (resumeData: ResumeData): string => {
   }
 
   .description {
-    white-space: pre-wrap;
+    margin-top: 4px;
+    padding-left: 18px;
+  }
+  .description li {
+    margin-bottom: 2px;
+    line-height: 1.3;
   }
 
   ul {
@@ -178,15 +183,27 @@ export const generateResumeHtml = (resumeData: ResumeData): string => {
               ${job.jobTitle}
             </div>
 
-            <div class="item-subtitle">
-              ${job.company} | ${job.startDate} - ${job.endDate}
-            </div>
+  <div class="item-subtitle">
+    ${job.company} | ${job.startDate} - ${job.endDate}
+  </div>
 
-            <div class="description">
-              ${job.description}
-            </div>
+  ${
+    job.bulletPoints?.length
+      ? `
+        <ul class="description">
+          ${job.bulletPoints
+            .map(
+              (point) => `
+                <li>${point}</li>
+              `,
+            )
+            .join("")}
+        </ul>
+      `
+      : ""
+  }
 
-          </div>
+</div>
         `,
           )
           .join("")}

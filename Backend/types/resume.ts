@@ -12,7 +12,8 @@ export interface Experience {
   jobTitle: string;
   startDate: string;
   endDate: string;
-  description: string;
+  // description: string;
+  bulletPoints: string[];
 }
 
 export interface Project {
