@@ -1,9 +1,9 @@
 import { Router, Request, Response } from "express";
 
 import { ResumeData } from "../types/resume";
-import { generateResumeHtml } from "../templates/resumeTemplate";
 import { generatePdf } from "../services/pdfService";
 import { validateResume } from "../utils/validateResume";
+import { generateResumeHtml } from "../services/templateService";
 
 const router = Router();
 
