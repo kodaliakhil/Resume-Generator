@@ -1,7 +1,7 @@
 export interface ResumeData {
   personalInfo: PersonalInfo;
   summary: string;
-  skills: string[];
+  skills: SkillDomain[];
   experience: Experience[];
   projects: Project[];
   education: Education[];
@@ -22,7 +22,6 @@ export interface Experience {
   jobTitle: string;
   startDate: string;
   endDate: string;
-  // description: string;
   bulletPoints: string[];
 }
 
@@ -44,3 +43,11 @@ export interface Certification {
   issuer: string;
   year: string;
 }
+
+export interface SkillDomain {
+  id: string;
+  name: string;
+  skills: string[];
+}
+
+

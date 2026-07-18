@@ -34,6 +34,8 @@ export const generateResumeHtml = (
       .filter(Boolean)
       .join(" | "),
 
-    skillsLine: resumeData.skills.join(", "),
+    // skillsLine: resumeData.skills.join(", "),
+    skillDomains: resumeData.skills,
+
   });
 };

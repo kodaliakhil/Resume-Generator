@@ -50,9 +50,16 @@ function ResumePreview({ resumeData }: ResumePreviewProps) {
         </ResumeSection>
 
         <ResumeSection title="Skills">
-          <p className="wrap-break-word">
-            {skills.length > 0 ? skills.join(", ") : "Skills will appear here."}
-          </p>
+          {skills.length > 0 ? (
+            skills.map((domain) => (
+              <div key={domain.id} className="flex">
+                <h4 className="font-semibold">{domain.name}:</h4>
+                <span className="wrap-break-word">{domain.skills.join(", ")}</span>
+              </div>
+            ))
+          ) : (
+            <p>Skills will appear here.</p>
+          )}
         </ResumeSection>
 
         <ResumeSection title="Experience">

@@ -14,13 +14,21 @@ export const mockResume: ResumeData = {
     "Software Engineer with experience in React, TypeScript, .NET and Azure. Passionate about building scalable enterprise applications.",
 
   skills: [
-    "React",
-    "TypeScript",
-    "JavaScript",
-    ".NET",
-    "Azure",
-    "SQL",
-    "Docker",
+    {
+      id: "1",
+      name: "Frontend",
+      skills: ["React", "TypeScript", "HTML", "CSS"],
+    },
+    {
+      id: "2",
+      name: "Backend",
+      skills: ["Node.js", "Express"],
+    },
+    {
+      id: "3",
+      name: "Database",
+      skills: ["SQL Server", "MongoDB"],
+    },
   ],
 
   experience: [
